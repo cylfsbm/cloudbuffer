@@ -1,9 +1,9 @@
 # cloudbuffer
 
 ### 改动1
-删掉txn.cpp/Commit函数中只读事务的ValidateOCC调用，现在只需要调用ValidayeReadInMerge即可。
+删掉txn.cpp/Commit函数中只读事务的ValidateOCC调用，现在只需要调用ValidateReadInMerge即可。
 ### 改动2
-修改ValidateInMerge函数，改成当一个事务跨epoch时即commit_epoch != start_epoch时才需要验证读集，否则直接返回true即可，改动如下：
+修改ValidateReadInMerge函数，改成当一个事务跨epoch时即commit_epoch != start_epoch时才需要验证读集，否则直接返回true即可，改动如下：
 ``` C++ 
 bool OccTransactionManager::ValidateReadInMerge(TxnManager * txMan){
     // MOT_LOG_INFO("验证开始在merge期间执行的事务");
